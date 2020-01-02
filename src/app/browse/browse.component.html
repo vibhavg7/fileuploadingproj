@@ -1,0 +1,57 @@
+<div class="bg-light container-fluid">
+  <div>
+    <form class="pt-2 pb-2 form-inline">
+      <div class="mr-2 ml-4 form-group">
+        <form [formGroup]="searchCriteriaForm">
+            <div class="form-group">
+                <div>
+                    <input formControlName="searchCriteria" placeholder="keyword..." (keyup)="onChanges()"
+                      type="text" class="form-control"
+                      autocomplete="off" autofocus placeholder="Search Products">
+                </div>
+            </div>
+        </form>
+      </div>
+      <button type="submit" class="btn btn-secondary">Search</button>
+    </form>
+    <ul class="pb-2 justify-content-end pagination">
+      <li class="page-item active">
+        <a href="#" id="1" class="page-link">1</a>
+      </li>
+    </ul>
+    <h6 align="right">Viewing {{imagesCount}} of {{imageTotalCount}} results
+        <span style="color:blue;cursor:pointer" *ngIf="imagesCount != imageTotalCount" (click)="loadMoreImages()">Load More..</span>
+    </h6>
+  </div>
+  <div>
+    <div class="container">
+      <div class="row">
+          <!-- [routerLink]="['/browse',image.id]" -->
+        <div class="py-2 col-md-4" style="cursor:pointer" *ngFor="let image of images">
+          <div>
+            <div>
+              <div class="text-center card card-body border-secondary">
+                <div class="card-header" style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{image?.text}}</div>
+                <div class="card-body">
+                  <div class="mt-2 mb-2" style="height: 300px; display: flex; justify-content: center; align-items: center;">
+                      <img *ngIf="image?.type !='video/mp4'" class='center-block img-responsive' src='{{image?.image_url}}' [title]='image?.text'
+                      style="width: 100%; height: auto; max-height: 300px;">
+                      <video src='{{image?.image_url}}' *ngIf="image?.type =='video/mp4'"
+                          controls="" style="width: 100%; height: auto; max-height: 300px;"></video>
+                  </div>
+                  <h6 class="card-subtitle" style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{{image?.type}}</h6>
+                  <div class="pt-2">
+                    <a>
+                      <button [routerLink]="['/browse',image.id]" class="btn btn-primary">View Results</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

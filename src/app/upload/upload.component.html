@@ -1,0 +1,44 @@
+<div class="container-md">
+  <div class="row">
+    <div class="col-8 offset-2">
+      <h1 class="display-8" align="center">Analyze new Media</h1>
+      <hr class="my-2">
+      <p class="lead" align="center">
+        Upload new image, video, or audio file to be analyzed by the Media Analysis Solution
+      </p>
+      <div align="center">
+        <img *ngIf="!uploadedImage" src="./assets/images/upload_image.png" class="img-fluid border">
+        <img *ngIf="uploadedImage" height="200px" style="margin-left:32px" [src]="imgURL" class="img-fluid border">
+      </div>
+      <div>
+        <div style="margin:10px 0px 0px 32px" class="form-inline">
+          <button type="submit" [disabled]="!uploadedImage" name="button1" class="btn btn-secondary" (click)="uploadImage()">Upload Media</button>
+          <div class="mr-sm-2 ml-sm-4 form-group">
+            <input type="text" name="mediafilename" value="{{imagePath}}" disabled="" class="form-control">
+          </div>
+        </div>
+        <div class="div-margin">
+          <div class="form-check-inline">
+            <label class="form-check-label" for="chk-1">
+              <input type="checkbox" class="form-check-input" id="chk-1" name="chk-1" value="Video indexing" checked>Video indexing
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label" for="chk-2">
+              <input type="checkbox" class="form-check-input" id="chk-2" name="chk-2" value="Media Analysis">Media Analysis
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label" for="chk-3">
+              <input type="checkbox" class="form-check-input" id="chk-3" name="chk-3" value="Video on Demand">Video on Demand
+            </label>
+          </div>
+        </div>
+        <small style="margin-left:32px" class="form-text text-muted">Media will be uploaded with the same name</small>
+        <div style="margin:10px 0px 0px 32px">
+          <input type="file" #file (change)="fileChangeEvent(file.files,'')" accept='image/*' name="file" class="form-control-file">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

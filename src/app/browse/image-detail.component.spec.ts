@@ -1,0 +1,33 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ImageDetailComponent } from './image-detail.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BrowseService } from '../shared/browse.service';
+import { RouterTestingModule } from '@angular/router/testing';
+
+describe('ImageDetailComponent', () => {
+  let component: ImageDetailComponent;
+  let fixture: ComponentFixture<ImageDetailComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ ImageDetailComponent ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
+      providers: [BrowseService],
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ImageDetailComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
