@@ -37,8 +37,7 @@ export class LoginComponent implements OnInit {
     employee.user_name = userName;
     employee.password = password;
     this.authService.login(employee).subscribe((data) => {
-      console.log(data);
-      if (data.token !== '') {
+      if (data) {
         this.router.navigate(['/upload']);
       } else {
         this.errorMessage = 'Please enter valid username and password';

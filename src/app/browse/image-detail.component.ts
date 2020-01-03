@@ -14,8 +14,12 @@ export class ImageDetailComponent implements OnInit {
   imageData: any;
   ngOnInit() {
     const imageId = +this.activatedRoute.snapshot.params.imageId;
-    this.imageData = this.imageService.images.find((data) => {
-      return data.id === imageId;
+    this.getImageData(imageId);
+  }
+
+  getImageData(imageId) {
+    this.imageService.getImageById(imageId).subscribe((data) => {
+      this.imageData = data;
     });
   }
 

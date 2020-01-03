@@ -11,11 +11,14 @@ export class UserService {
   authURL: any = 'http://localhost:3000/';
   redirectUrl: any;
   constructor(private http: HttpClient) {
-
   }
 
-  get isLoggedIn() {
+  get isLoggedIn(): boolean {
     return !!localStorage.getItem('demouser');
+  }
+
+  setToken(token) {
+    localStorage.setItem('demouser', token);
   }
 
   logout() {
@@ -27,10 +30,8 @@ export class UserService {
     return this.http.post(`${this.authURL}userapi/validate`, employee).pipe(
       tap(),
       map((data: any) => {
-        // console.log(data);
         if (data.status === 200 && data.token !== '') {
-          // console.log('not a valid user' + data.token);
-          localStorage.setItem('demouser', data.token);
+          this.setToken(data.token);
         }
         return data;
       })

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { tap, map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +9,23 @@ import { throwError } from 'rxjs';
 export class BrowseService {
 
   constructor(private http: HttpClient) { }
-  imageServiceUrl = 'http://localhost:3000/imageuploadapi/';
-  public images: any = [];
+  imageServiceUrl = 'http://localhost:3000/imageuploadapi';
+  private images: any = [];
   // tslint:disable-next-line:variable-name
   public _pageNumber = 1;
   // tslint:disable-next-line:variable-name
   public _pageSize = 6;
 
+  getImageById(imageId): Observable<any> {
+    const imagedata = this.images.find(data => data.id === imageId);
+    return of(imagedata);
+  }
+
   getImages(filterBy: any, loadMore: boolean) {
-    const obj: any = {}; obj.page_number = this._pageNumber; obj.page_size = this._pageSize; obj.filterBy = filterBy;
+    const obj: any = {};
+    obj.page_number = this._pageNumber;
+    obj.page_size = this._pageSize;
+    obj.filterBy = filterBy;
     console.log(obj);
     return this.http.post<any[]>(`${this.imageServiceUrl}/fetchImages`, obj)
       .pipe(
